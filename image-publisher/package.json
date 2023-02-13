@@ -1,0 +1,21 @@
+{
+  "name": "@robster-monitoring/image-publisher",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "ts-node src/main.ts",
+    "build": "tsc --build",
+    "start": "yarn build && node build/main.js",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@types/fluent-ffmpeg": "^2.1.20"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "fluent-ffmpeg": "^2.1.2",
+    "onvif": "^0.6.6",
+    "redis": "^4.5.0"
+  }
+}

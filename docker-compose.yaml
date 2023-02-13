@@ -1,0 +1,42 @@
+version: "3.8"
+networks:
+  image-publisher-comms:
+services:
+  robster-redis:
+    image: redis:7.0-alpine
+    networks:
+      - image-publisher-comms
+    restart: unless-stopped
+
+  robster-image-publisher:
+    depends_on:
+      - "robster-redis"
+    networks:
+      - image-publisher-comms
+    build:
+      context: .
+      dockerfile: ./Image-Publisher.Dockerfile
+    environment:
+      - HOST=${HOST}
+      - ROBSTER_USERNAME=${ROBSTER_USERNAME}
+      - ROBSTER_PASSWORD=${ROBSTER_PASSWORD}
+      - ONVIF_PORT=${ONVIF_PORT}
+      - RTSP_URL=${RTSP_URL}
+      - REDIS_URL=${REDIS_URL}
+      - REDIS_CHANNEL=robsterimages
+    restart: unless-stopped
+
+  robster-discord-bot:
+    depends_on:
+      - "robster-redis"
+      - "robster-image-publisher"
+    networks:
+      - image-publisher-comms
+    build:
+      context: .
+      dockerfile: ./Discord-Bot.Dockerfile
+    environment:
+      - DISCORD_KEY=${DISCORD_KEY}
+      - REDIS_URL=${REDIS_URL}
+      - REDIS_CHANNEL=robsterimages
+    restart: unless-stopped

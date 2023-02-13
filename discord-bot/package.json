@@ -1,0 +1,17 @@
+{
+  "name": "@robster-monitoring/discord-bot",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": "true",
+  "scripts": {
+    "dev": "yarn build && ts-node src/main.ts --build",
+    "build": "tsc --build",
+    "start": "yarn build && node build/main.js",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "discord.js": "^14.6.0",
+    "dotenv": "^16.0.3",
+    "redis": "^4.5.0"
+  }
+}

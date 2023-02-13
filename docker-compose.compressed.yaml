@@ -1,0 +1,29 @@
+version: "3.8"
+networks:
+  robster-combined-app-comms:
+services:
+  robster-redis:
+    image: redis:7.0-alpine
+    networks:
+      - robster-combined-app-comms
+    restart: unless-stopped
+
+  robster-combined-app:
+    depends_on:
+      - "robster-redis"
+    networks:
+      - robster-combined-app-comms
+    build:
+      context: .
+      dockerfile: ./Combined.Dockerfile
+    entrypoint: ./start-all.sh
+    environment:
+      - DISCORD_KEY=${DISCORD_KEY}
+      - REDIS_URL=${REDIS_URL}
+      - REDIS_CHANNEL=robsterimages
+      - HOST=${HOST}
+      - ROBSTER_USERNAME=${ROBSTER_USERNAME}
+      - ROBSTER_PASSWORD=${ROBSTER_PASSWORD}
+      - ONVIF_PORT=${ONVIF_PORT}
+      - RTSP_URL=${RTSP_URL}
+    restart: unless-stopped

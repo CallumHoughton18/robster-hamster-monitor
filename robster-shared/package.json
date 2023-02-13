@@ -1,0 +1,14 @@
+{
+  "name": "@robster-monitoring/shared",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "private": true,
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "pino": "^8.7.0"
+  }
+}
