@@ -7,7 +7,8 @@
     "discord-bot": "yarn workspace @robster-monitoring/discord-bot",
     "robster-shared": "yarn workspace @robster-monitoring/robster-shared",
     "image-publisher": "yarn workspace @robster-monitoring/image-publisher",
-    "build-all": "yarn discord-bot build && yarn image-publisher build"
+    "image-s3-storage": "yarn workspace @robster-monitoring/s3-image-storage",
+    "build-all": "yarn discord-bot build && yarn image-publisher build && yarn image-s3-storage build"
   },
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.1",
@@ -23,6 +24,7 @@
   "workspaces": [
     "discord-bot",
     "image-publisher",
-    "robster-shared"
+    "robster-shared",
+    "image-s3-storage"
   ]
 }

@@ -1,0 +1,17 @@
+{
+  "name": "@robster-monitoring/s3-image-storage",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "private": true,
+  "scripts": {
+    "dev": "ts-node src/main.ts",
+    "build": "tsc --build",
+    "start": "yarn build && node build/main.js",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "pino": "^8.7.0"
+  }
+}
