@@ -2,8 +2,6 @@
   "name": "@robster-monitoring/s3-image-storage",
   "version": "1.0.0",
   "license": "MIT",
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
   "private": true,
   "scripts": {
     "dev": "ts-node src/main.ts",
@@ -12,6 +10,9 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "pino": "^8.7.0"
+    "@aws-sdk/client-s3": "^3.342.0",
+    "pino": "^8.7.0",
+    "dotenv": "^16.0.3",
+    "redis": "^4.5.0"
   }
 }
