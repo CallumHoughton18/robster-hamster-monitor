@@ -19,6 +19,7 @@ services:
     entrypoint: ./start-all.sh
     environment:
       - DISCORD_KEY=${DISCORD_KEY}
+      - DISCORD_APPLICATION_ID=${DISCORD_APPLICATION_ID}
       - REDIS_URL=${REDIS_URL}
       - REDIS_CHANNEL=robsterimages
       - HOST=${HOST}
