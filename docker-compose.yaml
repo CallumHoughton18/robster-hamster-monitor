@@ -40,3 +40,20 @@ services:
       - REDIS_URL=${REDIS_URL}
       - REDIS_CHANNEL=robsterimages
     restart: unless-stopped
+
+  robster-s3-image-storage:
+    depends_on:
+      - "robster-redis"
+      - "robster-image-publisher"
+    networks:
+      - image-publisher-comms
+    build:
+      context: .
+      dockerfile: ./Image-S3-Storage.Dockerfile
+    environment:
+      - REDIS_URL=${REDIS_URL}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - BUCKET_NAME=${BUCKET_NAME}
+      - S3_REGION=${S3_REGION}
+    restart: unless-stopped

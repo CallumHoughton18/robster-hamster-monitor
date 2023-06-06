@@ -26,4 +26,8 @@ services:
       - ROBSTER_PASSWORD=${ROBSTER_PASSWORD}
       - ONVIF_PORT=${ONVIF_PORT}
       - RTSP_URL=${RTSP_URL}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - BUCKET_NAME=${BUCKET_NAME}
+      - S3_REGION=${S3_REGION}
     restart: unless-stopped

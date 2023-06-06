@@ -26,10 +26,24 @@ const imageUploader = async () => {
     config.redisChannelName,
     buf => {
       logger.info(`Detected bytes on channel ${config.redisChannelName}`);
-      publishImageDataToS3(new Date(), buf);
+      const now = new Date(); // Get the current local date and time
+      const utcDate = new Date(
+        Date.UTC(
+          now.getUTCFullYear(),
+          now.getUTCMonth(),
+          now.getUTCDate(),
+          now.getUTCHours(),
+          now.getUTCMinutes(),
+          now.getUTCSeconds(),
+          now.getUTCMilliseconds()
+        )
+      );
+      publishImageDataToS3(utcDate, buf);
     },
     true
   );
+
+  logger.info(`Initialized S3 image uploader`);
 
   async function publishImageDataToS3(publishDateTime: Date, buf: Buffer) {
     const year = publishDateTime.getFullYear();

@@ -2,6 +2,7 @@
 
 node ./discord-bot/build/main.js &
 node ./image-publisher/build/main.js & 
+node ./image-s3-storage/build/main.js & 
 
 # Wait for any process to exit
 wait -n
