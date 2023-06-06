@@ -40,7 +40,7 @@ const imageUploader = async () => {
     const minutes = String(publishDateTime.getMinutes()).padStart(2, "0");
     const seconds = String(publishDateTime.getSeconds()).padStart(2, "0");
 
-    const key = `${year}/${month}/${day}/${hours}:${minutes}:${seconds}.txt`;
+    const key = `${year}/${month}/${day}/${hours}:${minutes}:${seconds}.webp`;
     const command = new PutObjectCommand({
       Bucket: config.bucketName,
       Key: key,

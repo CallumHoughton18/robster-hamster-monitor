@@ -55,7 +55,7 @@ const robsterDiscordBot = async (
       try {
         logger.info("Posting image to discord...");
         await channel.send({
-          files: [{ attachment: data, name: "robster!.png" }],
+          files: [{ attachment: data, name: "robster!.webp" }],
         });
         logger.info("successfully posted image to discord");
       } catch (err) {

@@ -11,8 +11,8 @@ const getRtspCameraScreenshot = (rtspUrl: string): Promise<Buffer> => {
         reject(err);
       })
       .addOptions(["-rtsp_transport tcp"])
-      .videoCodec("png")
-      .format("rawvideo")
+      .videoCodec("libwebp") // Use libwebp for WebP encoding
+      .format("image2")
       .size("640x480")
       .frames(1)
       .outputOptions(["-ss 00:00:01"])
