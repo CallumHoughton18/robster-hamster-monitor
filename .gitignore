@@ -48,3 +48,8 @@ testoutput
 .compose.env
 
 tsconfig.tsbuildinfo
+
+robster-image-timestamp-test/
+robster-images-for-s3/
+robster-images-webp/
+robster-images/

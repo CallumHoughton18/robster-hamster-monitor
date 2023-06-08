@@ -8,6 +8,7 @@
     "robster-shared": "yarn workspace @robster-monitoring/robster-shared",
     "image-publisher": "yarn workspace @robster-monitoring/image-publisher",
     "image-s3-storage": "yarn workspace @robster-monitoring/s3-image-storage",
+    "discord-to-s3-image-migrator": "yarn workspace @robster-monitoring/discord-to-s3-image-migrator",
     "build-all": "yarn discord-bot build && yarn image-publisher build && yarn image-s3-storage build"
   },
   "devDependencies": {
@@ -25,6 +26,7 @@
     "discord-bot",
     "image-publisher",
     "robster-shared",
-    "image-s3-storage"
+    "image-s3-storage",
+    "discord-to-s3-image-migrator"
   ]
 }

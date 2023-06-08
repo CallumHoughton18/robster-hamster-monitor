@@ -1,0 +1,23 @@
+{
+  "name": "@robster-monitoring/discord-to-s3-image-migrator",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "download-images": "ts-node src/download-images.ts",
+    "convert-pngs": "ts-node src/convert-pngs.ts",
+    "format-for-s3": "ts-node src/format-for-s3.ts",
+    "build": "tsc --build",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.342.0",
+    "discord.js": "^14.6.0",
+    "dotenv": "^16.0.3",
+    "pino": "^8.7.0",
+    "sharp": "^0.32.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.2.5"
+  }
+}
