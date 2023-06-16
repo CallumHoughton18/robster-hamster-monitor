@@ -8,7 +8,8 @@ declare namespace NodeJS {
     ONVIF_PORT: string;
     REDIS_URL: string;
     RTSP_URL: string;
-    REDIS_CHANNEL: string;
+    REDIS_IMAGES_CHANNEL: string;
+    REDIS_VIDEOS_CHANNEL: string;
   }
 }
 

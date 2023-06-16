@@ -2,6 +2,7 @@
 declare namespace NodeJS {
   interface ProcessEnv {
     DISCORD_KEY: string;
-    REDIS_CHANNEL: string;
+    REDIS_IMAGES_CHANNEL: string;
+    REDIS_VIDEOS_CHANNEL: string;
   }
 }

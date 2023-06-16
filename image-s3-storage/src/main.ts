@@ -4,11 +4,11 @@ import * as dotenv from "dotenv";
 import { createClient } from "redis";
 
 dotenv.config();
-const logger = pinoLogger("image-publisher");
+const logger = pinoLogger("S3-image-storage");
 
 const config = {
   redisUrl: process.env.REDIS_URL as string,
-  redisChannelName: process.env.REDIS_CHANNEL as string,
+  redisChannelName: process.env.REDIS_IMAGES_CHANNEL as string,
   bucketName: process.env.BUCKET_NAME as string,
   s3Region: process.env.S3_REGION as string,
 };
