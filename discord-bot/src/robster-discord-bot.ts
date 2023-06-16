@@ -3,11 +3,13 @@ import { Client, GatewayIntentBits, TextChannel } from "discord.js";
 import { Logger, getErrorMessage } from "@robster-monitoring/shared";
 import { registerAndDeployCommandsWithClient } from "./commands/command-setup";
 import { christmasCommand } from "./commands/robster-commands";
+import { convertToGif } from "./utils/helpers";
 
 const robsterDiscordBot = async (
   key: string,
   applicationId: string,
-  redisChannelName: string,
+  redisImagesChannelName: string,
+  redisVideosChannelname: string,
   redisUrl: string,
   logger: Logger
 ) => {
@@ -42,20 +44,36 @@ const robsterDiscordBot = async (
   );
 
   await subscriber.subscribe(
-    redisChannelName,
+    redisImagesChannelName,
     buf => {
-      logger.info(`Detected bytes on channel ${redisChannelName}`);
-      postImageData(buf);
+      logger.info(`Detected bytes on channel ${redisImagesChannelName}`);
+      postImageData(buf, "robster!.webp");
     },
     true
   );
 
-  const postImageData = (data: Buffer) => {
+  await subscriber.subscribe(
+    redisVideosChannelname,
+    buf => {
+      logger.info(`Detected bytes on channel ${redisVideosChannelname}`);
+      
+      convertToGif(buf, logger)
+      .then(gifBuffer => postImageData(gifBuffer, 'robster!.gif'))
+      .catch(err => logger.error('An error occurred posting a gif to discord', err as Error));
+    },
+    true
+  );
+
+  const postImageData = (data: Buffer, fileName: string) => {
+    if (data.length === 0) {
+      logger.warn(`Cannot post a zero byte file as ${fileName}`);
+      return;
+    }
     robsterChannels().forEach(async channel => {
       try {
         logger.info("Posting image to discord...");
         await channel.send({
-          files: [{ attachment: data, name: "robster!.webp" }],
+          files: [{ attachment: data, name: fileName }],
         });
         logger.info("successfully posted image to discord");
       } catch (err) {

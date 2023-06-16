@@ -1,5 +1,5 @@
 export interface ImagePublisher {
-  publishImageBuffer: (buffer: Buffer) => Promise<void>;
+  publisherBuffer: (buffer: Buffer, bufferKey: string) => Promise<void>;
 }
 
 export interface ImageQueueProcessor {

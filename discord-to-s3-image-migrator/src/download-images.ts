@@ -102,4 +102,5 @@ const run = async () => {
   }
   getMessages(config.discordChannelId);
 };
+
 run();

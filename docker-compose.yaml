@@ -23,7 +23,8 @@ services:
       - ONVIF_PORT=${ONVIF_PORT}
       - RTSP_URL=${RTSP_URL}
       - REDIS_URL=${REDIS_URL}
-      - REDIS_CHANNEL=robsterimages
+      - REDIS_IMAGES_CHANNEL=robsterimages
+      - REDIS_VIDEOS_CHANNEL=robstervideos
     restart: unless-stopped
 
   robster-discord-bot:
@@ -38,7 +39,8 @@ services:
     environment:
       - DISCORD_KEY=${DISCORD_KEY}
       - REDIS_URL=${REDIS_URL}
-      - REDIS_CHANNEL=robsterimages
+      - REDIS_IMAGES_CHANNEL=robsterimages
+      - REDIS_VIDEOS_CHANNEL=robstervideos
       - DISCORD_APPLICATION_ID=${DISCORD_APPLICATION_ID}
     restart: unless-stopped
 

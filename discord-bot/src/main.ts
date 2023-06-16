@@ -11,7 +11,8 @@ const run = async () => {
     await robsterDiscordBot(
       process.env.DISCORD_KEY as string,
       process.env.DISCORD_APPLICATION_ID as string,
-      process.env.REDIS_CHANNEL as string,
+      process.env.REDIS_IMAGES_CHANNEL as string,
+      process.env.REDIS_VIDEOS_CHANNEL as string,
       process.env.REDIS_URL as string,
       logger
     );

@@ -1,35 +1,29 @@
-export const isInFestiveSeason = (givenDate: Date): boolean => {
-  const dateCopy = new Date(givenDate.getTime());
-  const givenYear = dateCopy.getFullYear();
-  const beginningFestiveSeason = new Date(givenYear, 11, 24);
-  const endFestiveSeason = new Date(givenYear, 11, 26);
-
-  givenDate.setDate(dateCopy.getDate() + 1);
-  return dateCopy >= beginningFestiveSeason && dateCopy < endFestiveSeason;
-};
-
 import FfmpegCommand from "fluent-ffmpeg";
 import { Logger } from "robster-shared/src";
-import stream, { Readable } from "stream";
+import stream from "stream";
 
-export const convertToGif = (mp4Buffer: Buffer, logger: Logger): Promise<Buffer> => {
-  const mp4Stream =  Readable.from(mp4Buffer);
+const getCameraVideoSnapshot = (rtspUrl: string, logger: Logger, lengthInSeconds: number): Promise<Buffer> => {
   return new Promise<Buffer>((resolve, reject) => {
     const startTime = new Date();
     startTime.setSeconds(startTime.getSeconds() - 10); // Subtract 3 seconds from the current time
 
     const bufferStream = new stream.PassThrough();
-    const toGifCommand = FfmpegCommand();
+    const captureVideoCommand = FfmpegCommand(rtspUrl);
     
-    toGifCommand
-    .input(mp4Stream)
-    .inputFormat("avi")
+    captureVideoCommand
+      .inputOptions(["-rtsp_transport tcp"])
       .on("error", (err, stdout, stderr) => {
         logger.fatal(stderr);
         console.log(err);
         reject(err);
       })
-      .toFormat('gif')
+      .addOptions(["-rtsp_transport tcp"])
+      .audioCodec("aac") // Specify an audio codec (in this case, AAC)
+      .videoCodec("libx264") // Use libx264 for H.264 encoding
+      .format("avi") // Use MPEG-4 container format
+      .size("640x480")
+      .outputOptions(["-an"]) // Disable audio recording
+      .outputOptions([`-t ${lengthInSeconds}`]) // Set output duration to 3 seconds
       .writeToStream(bufferStream, {end: true});
 
 
@@ -44,3 +38,5 @@ export const convertToGif = (mp4Buffer: Buffer, logger: Logger): Promise<Buffer>
     });
   });
 };
+
+export default getCameraVideoSnapshot;
