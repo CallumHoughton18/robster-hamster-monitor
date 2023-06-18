@@ -13,6 +13,7 @@ import { Logger } from "robster-shared/src";
 import stream, { Readable } from "stream";
 
 export const convertToGif = (mp4Buffer: Buffer, logger: Logger): Promise<Buffer> => {
+  logger.info(`Converting MP4 buffer of ${mp4Buffer.byteLength} bytes`)
   const mp4Stream =  Readable.from(mp4Buffer);
   return new Promise<Buffer>((resolve, reject) => {
     const startTime = new Date();
@@ -40,6 +41,7 @@ export const convertToGif = (mp4Buffer: Buffer, logger: Logger): Promise<Buffer>
     });
     bufferStream.on("end", function () {
       const outputBuffer = Buffer.concat(buffers);
+      logger.info(`Successful GIF conversion. GIF Size: ${outputBuffer.byteLength} bytes`)
       resolve(outputBuffer);
     });
   });

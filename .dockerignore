@@ -1,2 +1,6 @@
 .env
 node_modules
+robster-image-timestamp-test
+robster-images
+robster-images-for-s3
+robster-images-webp

@@ -47,7 +47,7 @@ const robsterDiscordBot = async (
     redisImagesChannelName,
     buf => {
       logger.info(`Detected bytes on channel ${redisImagesChannelName}`);
-      postImageData(buf, "robster!.webp");
+      postFileData(buf, "robster!.webp");
     },
     true
   );
@@ -56,29 +56,29 @@ const robsterDiscordBot = async (
     redisVideosChannelname,
     buf => {
       logger.info(`Detected bytes on channel ${redisVideosChannelname}`);
-      
+
       convertToGif(buf, logger)
-      .then(gifBuffer => postImageData(gifBuffer, 'robster!.gif'))
+      .then(gifBuffer => postFileData(gifBuffer, 'robster!.gif'))
       .catch(err => logger.error('An error occurred posting a gif to discord', err as Error));
     },
     true
   );
 
-  const postImageData = (data: Buffer, fileName: string) => {
+  const postFileData = (data: Buffer, fileName: string) => {
     if (data.length === 0) {
       logger.warn(`Cannot post a zero byte file as ${fileName}`);
       return;
     }
     robsterChannels().forEach(async channel => {
       try {
-        logger.info("Posting image to discord...");
+        logger.info(`Posting ${fileName} to discord...`);
         await channel.send({
           files: [{ attachment: data, name: fileName }],
         });
-        logger.info("successfully posted image to discord");
+        logger.info(`successfully posted ${fileName} to discord`);
       } catch (err) {
         logger.error(
-          `An error occurred posting the image to discord: ${getErrorMessage(
+          `An error occurred posting ${fileName} to discord: ${getErrorMessage(
             err
           )}`,
           err as Error
@@ -88,7 +88,7 @@ const robsterDiscordBot = async (
   };
 
   return {
-    postImageData,
+    postFileData,
   };
 };
 

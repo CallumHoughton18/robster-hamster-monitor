@@ -38,6 +38,7 @@ const run = async () => {
 
       getCameraVideoSnapshot(process.env.RTSP_URL, logger, 3)
       .then(buffer => {
+        logger.info(`Publishing buffer to ${config.redisVideosChannel} of size ${buffer.byteLength} bytes`)
         publisher.publisherBuffer(buffer, config.redisVideosChannel!);
 
       })
