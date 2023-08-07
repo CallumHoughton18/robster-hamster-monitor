@@ -10,7 +10,7 @@
     "image-s3-storage": "yarn workspace @robster-monitoring/s3-image-storage",
     "discord-to-s3-image-migrator": "yarn workspace @robster-monitoring/discord-to-s3-image-migrator",
     "twitter-bot": "yarn workspace @robster-monitoring/twitter-bot",
-    "build-all": "yarn discord-bot build && yarn image-publisher build && yarn image-s3-storage build"
+    "build-all": "yarn discord-bot build && yarn image-publisher build && yarn image-s3-storage build && yarn twitter-bot build"
   },
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.1",
