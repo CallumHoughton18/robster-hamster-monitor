@@ -22,6 +22,7 @@ const run = async () => {
       `A fatal error occurred: ${getErrorMessage(err)}`,
       err as Error
     );
+    process.exit(1);
   }
 };
 

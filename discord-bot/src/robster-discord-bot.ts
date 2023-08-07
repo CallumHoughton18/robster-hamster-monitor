@@ -1,9 +1,12 @@
 import { createClient } from "redis";
 import { Client, GatewayIntentBits, TextChannel } from "discord.js";
-import { Logger, getErrorMessage } from "@robster-monitoring/shared";
+import {
+  Logger,
+  convertToGif,
+  getErrorMessage,
+} from "@robster-monitoring/shared";
 import { registerAndDeployCommandsWithClient } from "./commands/command-setup";
 import { christmasCommand } from "./commands/robster-commands";
-import { convertToGif } from "./utils/helpers";
 
 const robsterDiscordBot = async (
   key: string,
@@ -58,8 +61,13 @@ const robsterDiscordBot = async (
       logger.info(`Detected bytes on channel ${redisVideosChannelname}`);
 
       convertToGif(buf, logger)
-      .then(gifBuffer => postFileData(gifBuffer, 'robster!.gif'))
-      .catch(err => logger.error('An error occurred posting a gif to discord', err as Error));
+        .then(gifBuffer => postFileData(gifBuffer, "robster!.gif"))
+        .catch(err =>
+          logger.error(
+            "An error occurred posting a gif to discord",
+            err as Error
+          )
+        );
     },
     true
   );

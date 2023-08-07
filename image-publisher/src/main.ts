@@ -27,22 +27,20 @@ const config = {
 
 const run = async () => {
   try {
-    const publisher = await redisImagePublisher(
-      process.env.REDIS_URL,
-      logger
-    );
+    const publisher = await redisImagePublisher(process.env.REDIS_URL, logger);
     logger.info("Redis image publisher initialized");
 
     const handleMotionEvent = () => {
       logger.info("Motion detected!");
 
       getCameraVideoSnapshot(process.env.RTSP_URL, logger, 3)
-      .then(buffer => {
-        logger.info(`Publishing buffer to ${config.redisVideosChannel} of size ${buffer.byteLength} bytes`)
-        publisher.publisherBuffer(buffer, config.redisVideosChannel!);
-
-      })
-      .catch(err => logger.error("Cannot publish video buffer", err));
+        .then(buffer => {
+          logger.info(
+            `Publishing buffer to ${config.redisVideosChannel} of size ${buffer.byteLength} bytes`
+          );
+          publisher.publisherBuffer(buffer, config.redisVideosChannel!);
+        })
+        .catch(err => logger.error("Cannot publish video buffer", err));
 
       getRtspCameraScreenshot(process.env.RTSP_URL)
         .then(buffer => {
@@ -51,15 +49,16 @@ const run = async () => {
         .catch(err => logger.error("Cannot publish image buffer", err));
     };
 
-    //handleMotionEvent();
+    // commented out as I reenable this for YOLO debugging to force triggering a video and image capture.
+    // handleMotionEvent();
     const motionDetector = await onvifMotionDetector(config, 300000, logger);
     motionDetector.subscribeToMotionChanges(handleMotionEvent);
-
   } catch (err) {
     logger.fatal(
       `A fatal error occurred: ${getErrorMessage(err)}`,
       err as Error
     );
+    process.exit(1);
   }
 };
 

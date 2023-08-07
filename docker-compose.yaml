@@ -61,3 +61,23 @@ services:
       - VIDEOS_BUCKET_NAME=${VIDEOS_BUCKET_NAME}
       - S3_REGION=${S3_REGION}
     restart: unless-stopped
+
+  robster-twitter-bot:
+    depends_on:
+      - "robster-redis"
+      - "robster-image-publisher"
+    networks:
+      - image-publisher-comms
+    build:
+      context: .
+      dockerfile: ./Twitter-Bot.Dockerfile
+    environment:
+      - DISCORD_KEY=${DISCORD_KEY}
+      - REDIS_URL=${REDIS_URL}
+      - REDIS_IMAGES_CHANNEL=robsterimages
+      - REDIS_VIDEOS_CHANNEL=robstervideos
+      - TWITTER_CONSUMER_KEY=${TWITTER_CONSUMER_KEY}
+      - TWITTER_CONSUMER_KEY_SECRET=${TWITTER_CONSUMER_KEY_SECRET}
+      - TWITTER_ACCESS_TOKEN=${TWITTER_ACCESS_TOKEN}
+      - TWITTER_ACCESS_TOKEN_SECRET=${TWITTER_ACCESS_TOKEN_SECRET}
+    restart: unless-stopped
