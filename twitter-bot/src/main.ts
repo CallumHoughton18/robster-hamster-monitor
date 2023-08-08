@@ -31,7 +31,7 @@ const runTwitterBot = async (cooldownInMs: number) => {
     accessSecret: config.twitterAccessTokenSecret,
   });
 
-  setTimeout(() => {
+  setInterval(() => {
     logger.info("Twitter bot cooldown reset");
     isOnCoolDown = false;
   }, cooldownInMs);
